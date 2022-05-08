@@ -165,7 +165,7 @@ private fun CardContent(name: String) {
 //            }
     }
 
-//        Text(text = "Hello $name!", Modifier.padding(24.dp))
+        // Text(text = "Hello $name!", Modifier.padding(24.dp))
         // 여기서 잠깐!
         // 텍스트가 자동으로 흰색으로 변경되는 것을 확인할 수 있음.
         // androix.compose.material.Surface는 해당 색상에서 적절한 텍스트를 알아서 처리해줌.
