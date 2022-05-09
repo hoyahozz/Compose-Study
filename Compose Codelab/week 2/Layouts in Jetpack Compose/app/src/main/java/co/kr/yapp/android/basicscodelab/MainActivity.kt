@@ -1,5 +1,6 @@
 package co.kr.yapp.android.basicscodelab
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -20,10 +21,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import co.kr.yapp.android.basicscodelab.ui.theme.BasicsCodelabTheme
 import coil.compose.rememberImagePainter
 import kotlinx.coroutines.launch
@@ -146,10 +149,14 @@ fun ImageListItem(modifier: Modifier = Modifier ,index : Int) {
 
 @Composable
 fun TopLayoutCodeLab() {
+    val context = LocalContext.current
     TopAppBar(
         title = { Text(text = "LayoutCodelab") },
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {
+                val intent = Intent(context, LayoutActivity::class.java)
+                context.startActivity(intent)
+            }) {
                 Icon(Icons.Filled.Favorite, contentDescription = null)
             }
             IconButton(onClick = { /*TODO*/ }) {
@@ -179,7 +186,7 @@ fun BottomLayoutCodeLab() {
 }
 
 @Composable
-fun BodyContent(modifier: Modifier = Modifier) {
+fun StaggeredGridExample(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Text(text = "안녕하세요!")
         Text(text = "코드랩에 참여해주셔서 감사해요!")
