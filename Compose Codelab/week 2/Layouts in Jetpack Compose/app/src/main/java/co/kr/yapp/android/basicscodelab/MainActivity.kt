@@ -49,6 +49,7 @@ class MainActivity : ComponentActivity() {
 fun LayoutCodeLab(modifier : Modifier = Modifier) {
 
     val scrollState = rememberLazyListState()
+    // 스크롤 하다가 다른 스크롤이 들어오면 지연시키고 그 스크롤을 실행해야 하니깐..! 코루틴스코프
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(

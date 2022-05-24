@@ -94,14 +94,14 @@ private fun CardContent(name: String) {
 
 //    val extraPadding = if (expanded.value) 48.dp else 0.dp
     // 애니메이션 추가
-    val extraPadding by animateDpAsState(
-        targetValue = if (expanded.value) 48.dp else 0.dp,
-        // 애니메이션 맞춤 설정
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
-        )
-    )
+//    val extraPadding by animateDpAsState(
+//        targetValue = if (expanded.value) 48.dp else 0.dp,
+//        // 애니메이션 맞춤 설정
+//        animationSpec = spring(
+//            dampingRatio = Spring.DampingRatioMediumBouncy,
+//            stiffness = Spring.StiffnessLow
+//        )
+//    )
 
     // Greeting에 배경 색상을 설정하려면 Surface 로 래핑한다.
     // 변경사항이 생기면 상단에 Build & Refresh 버튼이 표시되고, 클릭하면 프로젝트를 빌드하여
