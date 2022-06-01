@@ -168,6 +168,7 @@ private fun PostMetadata(
     val tagStyle = MaterialTheme.typography.overline.toSpanStyle().copy(
         background = MaterialTheme.colors.primary.copy(alpha = 0.1f)
     )
+
     val divider = "  •  "
     val tagDivider = "  "
     val text = buildAnnotatedString {
@@ -183,6 +184,10 @@ private fun PostMetadata(
                 append(" ${tag.uppercase(Locale.getDefault())} ")
             }
         }
+    }
+
+    CompositionLocalProvider(LocalElevationOverlay provides null ) {
+
     }
 
     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
