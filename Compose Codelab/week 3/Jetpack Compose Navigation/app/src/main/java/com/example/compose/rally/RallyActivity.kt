@@ -109,66 +109,67 @@ fun RallyNavHost(
     NavHost(
         navController = navController, // 뒤로가기, 백스택 처리, 화면 이동은 모두 navController 를 통해 이뤄진다.
         startDestination = RallyScreen.Overview.name, // 시작점 (Overview.name = Overview)
-        modifier = modifier
-    ) {
-        // "Accounts"
-        val accountsName = RallyScreen.Accounts.name
+        modifier = modifier,
+        builder =
+        {
+            // "Accounts"
+            val accountsName = RallyScreen.Accounts.name
 
-        // 자세히 보기 화면
-        composable(
-            route = "$accountsName/{name}", // (Accounts/name)
-            arguments = listOf(
-                navArgument("name") {
-                    // Make argument type safe
-                    // 여기서 매개변수 지정
-                    type = NavType.StringType
-                }
-            ),
-            // Test Code : adb shell am start -d "rally://accounts/Checking" -a android.intent.action.VIEW
-            deepLinks = listOf(navDeepLink {
-                uriPattern = "rally://$accountsName/{name}"
-            })
-        ) { entry -> // Look up "name" in NavBackStackEntry's arguments
-            val accountName = entry.arguments?.getString("name") // name 이라는 키로 넣어주기
-            // Find first name match in UserData
-            val account = UserData.getAccount(accountName)
-            // Pass account to SingleAccountBody
-            SingleAccountBody(account = account) // 매개변수 넣어주기
-        }
-
-        // 화면 이동, route -> 화면 이동을 위한 키 값
-        // "Overview"
-        composable(RallyScreen.Overview.name) {
-            // Text(RallyScreen.Overview.name) // OverView 이면 이 Text 를 반환하자
-            // See All 버튼을 눌렀을 때 Accounts 의 이름으로 이동
-            OverviewBody(
-                onClickSeeAllAccounts = { navController.navigate(RallyScreen.Accounts.name) },
-                onClickSeeAllBills = { navController.navigate(RallyScreen.Bills.name) },
-                onAccountClick = { selectedAccount ->
-                    navigateToSingleAccount(
-                        navController,
-                        selectedAccount
-                    )
-                }
-            )
-        }
-        // "Accounts"
-        composable(RallyScreen.Accounts.name) {
-            // Text(RallyScreen.Accounts.name)
-            AccountsBody(accounts = UserData.accounts,
-                onAccountClick = { selectedAccount ->
-                    navigateToSingleAccount(
-                        navController,
-                        selectedAccount
-                    )
+            // 자세히 보기 화면
+            composable(
+                route = "$accountsName/{name}", // (Accounts/name)
+                arguments = listOf(
+                    navArgument("name") {
+                        // Make argument type safe
+                        // 여기서 매개변수 지정
+                        type = NavType.StringType
+                    }
+                ),
+                // Test Code : adb shell am start -d "rally://accounts/Checking" -a android.intent.action.VIEW
+                deepLinks = listOf(navDeepLink {
+                    uriPattern = "rally://$accountsName/{name}"
                 })
-        }
-        // "Bills"
-        composable(RallyScreen.Bills.name) {
-            // Text(RallyScreen.Bills.name)
-            BillsBody(bills = UserData.bills)
-        }
-    }
+            ) { entry -> // Look up "name" in NavBackStackEntry's arguments
+                val accountName = entry.arguments?.getString("name") // name 이라는 키로 넣어주기
+                // Find first name match in UserData
+                val account = UserData.getAccount(accountName)
+                // Pass account to SingleAccountBody
+                SingleAccountBody(account = account) // 매개변수 넣어주기
+            }
+
+            // 화면 이동, route -> 화면 이동을 위한 키 값
+            // "Overview"
+            composable(RallyScreen.Overview.name) {
+                // Text(RallyScreen.Overview.name) // OverView 이면 이 Text 를 반환하자
+                // See All 버튼을 눌렀을 때 Accounts 의 이름으로 이동
+                OverviewBody(
+                    onClickSeeAllAccounts = { navController.navigate(RallyScreen.Accounts.name) },
+                    onClickSeeAllBills = { navController.navigate(RallyScreen.Bills.name) },
+                    onAccountClick = { selectedAccount ->
+                        navigateToSingleAccount(
+                            navController,
+                            selectedAccount
+                        )
+                    }
+                )
+            }
+            // "Accounts"
+            composable(RallyScreen.Accounts.name) {
+                // Text(RallyScreen.Accounts.name)
+                AccountsBody(accounts = UserData.accounts,
+                    onAccountClick = { selectedAccount ->
+                        navigateToSingleAccount(
+                            navController,
+                            selectedAccount
+                        )
+                    })
+            }
+            // "Bills"
+            composable(RallyScreen.Bills.name) {
+                // Text(RallyScreen.Bills.name)
+                BillsBody(bills = UserData.bills)
+            }
+        })
 }
 
 private fun navigateToSingleAccount(
